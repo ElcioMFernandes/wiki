@@ -7,7 +7,7 @@
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     // Next.js App Router (o mais importante!)
-    "page.tsx": "page.*, loading.*, error.*, not-found.*, route.*, layout.*, template.*",
+    "page.tsx": "page.*, loading.*, error.*, not-found.*, route.*, layout.*, template.*, not-allowed.*",
     "layout.tsx": "layout.*, template.*, loading.*, error.*, not-found.*",
     "loading.tsx": "loading.*, error.*, not-found.*",
     "error.tsx": "error.*, not-found.*",
