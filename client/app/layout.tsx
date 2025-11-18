@@ -1,3 +1,4 @@
+import { DynamicBreadcrumb } from "@/components/Breadcrumb";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-import { Home, Library, Search } from "lucide-react";
+import { Home, Library, Shield, ShieldUser } from "lucide-react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
@@ -30,15 +31,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UDESC CEPLAN Wiki",
+  title: "Wiki UDESC",
   description: "Compartilhe, aprenda e cresça junto com a comunidade",
 };
 
 // Itens do menu principal
-const mainMenuItems = [
-  { title: "Início", icon: Home, url: "/" },
-  { title: "Explorar", icon: Search, url: "/posts" },
-  { title: "Development ", icon: Library, url: "/admin" },
+const menu = [
+  {
+    title: "Menu Principal",
+    options: [
+      { title: "Início", icon: Home, url: "/" },
+      { title: "Explorar", icon: Library, url: "/posts" },
+      { title: "Administração", icon: ShieldUser, url: "/admin" },
+    ],
+  },
+  {
+    title: "Informações",
+    options: [{ title: "Política de Uso", icon: Shield, url: "/policy" }],
+  },
 ];
 
 export default function RootLayout({
@@ -49,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased select-none`}
       >
         <SidebarProvider>
           <Sidebar className="select-none">
@@ -64,54 +74,36 @@ export default function RootLayout({
               </div>
             </SidebarHeader>
             <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {mainMenuItems.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <a href={item.url}>
-                            <item.icon />
-                            <span>{item.title}</span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
+              {menu.map((section) => (
+                <SidebarGroup key={section.title}>
+                  <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {section.options.map((item) => (
+                        <SidebarMenuItem key={item.title}>
+                          <SidebarMenuButton asChild>
+                            <a href={item.url}>
+                              <item.icon />
+                              <span>{item.title}</span>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              ))}
             </SidebarContent>
-            {/* <SidebarFooter className="border-t p-4">
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <a href="/perfil">
-                      <User />
-                      <span>Meu Perfil</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <a href="/configuracoes">
-                      <Settings />
-                      <span>Configurações</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarFooter> */}
           </Sidebar>
           <SidebarInset className="flex flex-col min-h-screen">
-            <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+            <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
-              <nav>{"Breadcrumb > ... > Page"}</nav>
+              <DynamicBreadcrumb />
             </header>
             <main className="flex-1 flex flex-col gap-4 p-4">{children}</main>
           </SidebarInset>
         </SidebarProvider>
-        <Toaster />
+        <Toaster position="top-center" />
       </body>
     </html>
   );
