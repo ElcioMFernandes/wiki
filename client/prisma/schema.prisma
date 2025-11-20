@@ -29,3 +29,18 @@ model Post {
   @@index([email])
   @@index([confirmed])
 }
+
+model Video {
+  id        Int      @id @default(autoincrement())
+  title   String
+  url     String
+  email     String
+  sender    String
+  authors   String[]
+  confirmed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([confirmed])
+}

@@ -41,7 +41,7 @@ const menu = [
     title: "Menu Principal",
     options: [
       { title: "Início", icon: Home, url: "/" },
-      { title: "Explorar", icon: Library, url: "/posts" },
+      { title: "Explorar", icon: Library, url: "/explore" },
       { title: "Administração", icon: ShieldUser, url: "/admin" },
     ],
   },
