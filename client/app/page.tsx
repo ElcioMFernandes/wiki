@@ -1,4 +1,5 @@
 import { listPosts } from "@/actions/posts";
+import { listVideos } from "@/actions/videos";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,13 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Library, Plus } from "lucide-react";
+import { Library } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
   const posts = await listPosts();
   const recentPosts = posts.slice(0, 3);
+
+  const videos = await listVideos();
+  const recentVideos = videos.slice(0, 3);
 
   return (
     <div className="flex flex-col min-h-screen space-y-20">
@@ -50,23 +54,13 @@ export default async function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/posts">
+              <Link href="/explore">
                 <Button
                   size="lg"
                   className="text-lg px-8 bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 dark:from-green-500 dark:to-emerald-500 dark:hover:from-green-600 dark:hover:to-emerald-600 shadow-lg shadow-green-500/30"
                 >
                   <Library className="h-5 w-5" />
-                  Explorar Posts
-                </Button>
-              </Link>
-              <Link href="/posts/new">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-lg px-8 border-green-600/50 hover:bg-green-50 dark:border-green-500/50 dark:hover:bg-green-950/30"
-                >
-                  <Plus className="h-5 w-5" />
-                  Criar Post
+                  Explorar
                 </Button>
               </Link>
             </div>
@@ -115,6 +109,58 @@ export default async function Home() {
                         {[
                           ...(post.sender ? [post.sender] : []),
                           ...(post.authors || []),
+                        ]
+                          .slice(0, 2)
+                          .map((author, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-primary bg-green-100/50 dark:bg-green-900/30 border border-green-200/50 dark:border-green-800/50"
+                            >
+                              {author}
+                            </span>
+                          ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {recentVideos.length > 0 && (
+        <section>
+          <div className="container mx-auto max-w-7xl px-4">
+            <div className="flex items-center justify-between mb-12">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                  Vídeos Recentes
+                </h2>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {recentVideos.map((video) => (
+                <Link key={video.id} href={`/videos/${video.id}`}>
+                  <Card className="h-full hover:shadow-xl hover:border-green-500/50 dark:hover:border-green-500/30 transition-all group hover:-translate-y-1">
+                    <CardHeader>
+                      <CardTitle className="line-clamp-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        {video.title}
+                      </CardTitle>
+                      <CardDescription>
+                        {new Date(video.updatedAt).toLocaleDateString("pt-BR", {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          ...(video.sender ? [video.sender] : []),
+                          ...(video.authors || []),
                         ]
                           .slice(0, 2)
                           .map((author, index) => (
