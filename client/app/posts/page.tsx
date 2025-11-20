@@ -65,9 +65,9 @@ export default async function Posts() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link key={post.id} href={`/posts/${post.id}`} className="group">
-              <Card className="h-full hover:shadow-xl transition-all group hover:-translate-y-1">
+              <Card className="h-full hover:border-green-500/50 dark:hover:border-green-500/30 transition-all group hover:-translate-y-1">
                 <CardHeader className="space-y-3">
-                  <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+                  <CardTitle className="line-clamp-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                     {post.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-1.5">
