@@ -27,7 +27,7 @@ export default async function Post({
     <div className="container max-w-4xl px-4 py-12 md:py-16 mx-auto">
       <article className="prose prose-lg dark:prose-invert max-w-none">
         <header className="not-prose space-y-8 mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight leading-tight">
             {post.title}
           </h1>
 
