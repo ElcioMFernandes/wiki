@@ -1,5 +1,5 @@
 "use client";
-import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
+import { Music, Pause, Play, SkipBack, SkipForward } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
@@ -14,7 +14,6 @@ export default function AudioPlayer({
   src,
   title = "Título da música",
   artist = "Artista",
-  cover = "/default-cover.jpg", // coloque uma capa na pasta public
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -43,7 +42,7 @@ export default function AudioPlayer({
   };
 
   return (
-    <div className="w-full max-w-lg  text-white p-5 rounded-xl shadow-xl space-y-4 border border-neutral-800">
+    <div className="w-full max-w-lg  text-white p-5 rounded-xl shadow-xl space-y-4 border">
       <audio
         ref={audioRef}
         src={src}
@@ -53,14 +52,7 @@ export default function AudioPlayer({
 
       {/* CAPA DO ÁLBUM */}
       <div className="w-full flex justify-center">
-        <Image
-            src={cover}
-            alt={title}
-            width={300}
-            height={300}
-            className="rounded-md shadow-lg object-cover"
-            priority
-        />
+        <Music size={150} className="text-green-600" />
       </div>
 
       {/* TEXTO */}
@@ -71,18 +63,18 @@ export default function AudioPlayer({
 
       {/* CONTROLES */}
       <div className="flex items-center justify-center gap-6 mt-3">
-        <button className="text-gray-400 hover:text-white transition">
+        <button className="text-gray-400 hover:text-green-600 transition">
           <SkipBack size={28} />
         </button>
 
         <button
           onClick={togglePlay}
-          className="bg-white text-black w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition"
+          className="bg-white text-green-600 w-14 h-14 rounded-full flex items-center justify-center hover:scale-105 transition"
         >
           {isPlaying ? <Pause size={32} /> : <Play size={32} />}
         </button>
 
-        <button className="text-gray-400 hover:text-white transition">
+        <button className="text-gray-400 hover:text-green-600 transition">
           <SkipForward size={28} />
         </button>
       </div>
@@ -90,7 +82,7 @@ export default function AudioPlayer({
       {/* BARRA DE PROGRESSO */}
       <div className="w-full bg-neutral-700 h-2 rounded-full overflow-hidden">
         <div
-          className="h-full bg-green-500 transition-all duration-200"
+          className="h-full bg-green-600 transition-all duration-200"
           style={{ width: `${progress}%` }}
         />
       </div>
