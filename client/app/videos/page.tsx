@@ -1,4 +1,5 @@
 import { listVideos } from "@/actions/videos";
+import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,8 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Calendar, Plus, Search, SearchX } from "lucide-react";
+import { Calendar, Plus, SearchX } from "lucide-react";
 import Link from "next/link";
 
 export default async function Video() {
@@ -28,8 +28,11 @@ export default async function Video() {
         {/* Search and Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Pesquisar posts..." className="pl-9" />
+            <SearchBar
+              items={videos}
+              placeholder="Pesquisar vídeos..."
+              type="videos"
+            />
           </div>
           <Link href="/videos/new">
             <Button
@@ -65,7 +68,7 @@ export default async function Video() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => (
-            <Link key={video.id} href={`/posts/${video.id}`} className="group">
+            <Link key={video.id} href={`/videos/${video.id}`} className="group">
               <Card className="h-full hover:shadow-xl transition-all group hover:-translate-y-1">
                 <CardHeader className="space-y-3">
                   <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
