@@ -1,4 +1,5 @@
 import { listPosts } from "@/actions/posts";
+import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Calendar, Plus, Search, SearchX } from "lucide-react";
+import { Calendar, Plus, SearchX } from "lucide-react";
 import Link from "next/link";
 
 export default async function Posts() {
@@ -29,8 +29,11 @@ export default async function Posts() {
         {/* Search and Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Pesquisar posts..." className="pl-9" />
+            <SearchBar
+              items={posts}
+              placeholder="Pesquisar posts..."
+              type="posts"
+            />
           </div>
           <Link href="/posts/new">
             <Button
@@ -83,8 +86,6 @@ export default async function Posts() {
                 </CardHeader>
 
                 <CardContent>
-                      
-
                   {post.content && (
                     <p className="text-sm text-muted-foreground line-clamp-3">
                       {post.content}

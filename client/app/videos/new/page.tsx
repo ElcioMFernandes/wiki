@@ -138,8 +138,7 @@ export default function NewVideo() {
                     Conteúdo do Vídeo
                   </CardTitle>
                   <CardDescription>
-                    Escreva um título atrativo e resumo informativo, além de
-                    fornecer a URL do youtube
+                    Escreva um título atrativo e forneça a URL do youtube
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
