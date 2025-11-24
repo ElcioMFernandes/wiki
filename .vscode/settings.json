@@ -96,7 +96,5 @@
   },
   "emmet.includeLanguages": {
     "typescriptreact": "html"
-  },
-  "workbench.iconTheme": "chalice-icon-theme", // opcional, mas fica lindo
-  "workbench.colorTheme": "Min Dark" // ou o que você preferir
+  }
 }
